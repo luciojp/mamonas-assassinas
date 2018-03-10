@@ -58,6 +58,19 @@
 <meta name="twitter:title" content="Semelhancas"/>
 <meta name="twitter:description" content="Ola mundo"/>
 
+<style>
+    .node {
+        fill: #ccc;
+        stroke: #fff;
+        stroke-width: 2px;
+    }
+
+    .link {
+        stroke: #999;
+        stroke-opacity: 0.3;
+    }
+  </style>
+
   </head>
 
   <body class="ma0 avenir bg-near-white">
@@ -128,7 +141,7 @@
     </article>
     <div class="ph3 mt2 mt6-ns">
 
-
+      <div id="chart"></div>
 
 
 
@@ -158,6 +171,93 @@
 </footer>
 
     <script src="https://luciojp.github.io/mamonas-assassinas/dist/app.bundle.js" async></script>
+
+
+    <!-- scripts -->
+    <script src="js/d3.v4.min.js"></script>
+    <script>
+      var
+          width = 1000,
+          height = 1000;
+
+      var svg = d3.select("#chart")
+          .append("svg")
+          .attr('version', '1.1')
+          .attr('viewBox', '0 0 '+width+' '+height)
+          .attr('width', '100%');
+
+      var color = d3.scaleThreshold().domain([0, 20, 40, 60, 80]).range(["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"]);
+
+      var simulation = d3.forceSimulation()
+          .force("link", d3.forceLink().id(function(d) { return d.id; }))
+          .force("charge", d3.forceManyBody())
+          .force("center", d3.forceCenter(width / 2, height / 2));
+
+      d3.json("mamonas.json", function(error, graph) {
+        if (error) throw error;
+
+        console.dir(graph.edges);
+        console.dir(graph.nodes);
+
+        var link = svg.append("g")
+            .attr("class", "link")
+          .selectAll("line")
+            .data(graph.edges)
+          .enter().append("line");
+
+        var node = svg.append("g")
+            .attr("class", "nodes")
+          .selectAll("circle")
+            .data(graph.nodes)
+          .enter().append("circle")
+            .attr("r", 5)
+            .attr("fill", function(d) { return color(d.size); })
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("title")
+            .text(function(d) { return d.label; });
+
+        simulation
+            .nodes(graph.nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(graph.edges);
+
+        function ticked() {
+          link
+              .attr("x1", function(d) { return d.source.x; })
+              .attr("y1", function(d) { return d.source.y; })
+              .attr("x2", function(d) { return d.target.x; })
+              .attr("y2", function(d) { return d.target.y; });
+
+          node
+              .attr("cx", function(d) { return d.x; })
+              .attr("cy", function(d) { return d.y; });
+        }
+      });
+
+      function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+
+      function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      }
+
+      function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+
+    </script>
 
   </body>
 </html>
