@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mamonas assassinas</title>
+    <link>https://luciojp.github.io/mamonas-assassinas/</link>
+    <description>Recent content on Mamonas assassinas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-BR</language>
+    <lastBuildDate>Sat, 10 Mar 2018 18:27:14 -0300</lastBuildDate>
+    
+	<atom:link href="https://luciojp.github.io/mamonas-assassinas/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Semelhancas</title>
+      <link>https://luciojp.github.io/mamonas-assassinas/post/semelhancas/</link>
+      <pubDate>Sat, 10 Mar 2018 18:27:14 -0300</pubDate>
+      
+      <guid>https://luciojp.github.io/mamonas-assassinas/post/semelhancas/</guid>
+      <description>Ola mundo</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,10 @@
+baseURL = "https://luciojp.github.io/mamonas-assassinas/"
+
+languageCode = "pt-BR"
+
+title = "Mamonas assassinas"
+
+theme = "gohugo-theme-ananke"
+publishDir = "docs"
+DefaultContentLanguage = "pt"
+relativeURLs = true
