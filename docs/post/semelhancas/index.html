@@ -193,7 +193,7 @@
           .attr('viewBox', '0 0 '+width+' '+height)
           .attr('width', '100%');
 
-      var color = d3.scaleThreshold().domain([0, 20, 40, 60, 80]).range(["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"]);
+      var color = d3.scaleThreshold().domain([0, 20, 40, 60, 80]).range(["#fef0d9", "#fdcc8a", "#fc8d59", "#e34a33", "#b30000"]);
 
       var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d) { return d.id; }))
